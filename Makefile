@@ -10,9 +10,13 @@ ifeq ($(strip $(DOCKER_COMPOSE)),)
 endif
 
 build:
+	mkdir -p /home/ybentaye/data/mariadb
+	mkdir -p /home/ybentaye/data/wordpress
 	$(DOCKER_COMPOSE) -f srcs/docker-compose.yml build
 
 up:
+	mkdir -p /home/ybentaye/data/mariadb
+	mkdir -p /home/ybentaye/data/wordpress
 	$(DOCKER_COMPOSE) --file srcs/docker-compose.yml up -d
 
 start:
@@ -21,8 +25,13 @@ start:
 down:
 	$(DOCKER_COMPOSE) --file srcs/docker-compose.yml down
 
-destroy:
-	$(DOCKER_COMPOSE) --file srcs/docker-compose.yml down
+delete:
+	$(DOCKER_COMPOSE) --file srcs/docker-compose.yml down -v
+	@sudo rm -rf /home/ybentaye/data
+
+deletevolume:
+	@sudo rm -rf /home/ybentaye/data
+
 
 stop:
 	$(DOCKER_COMPOSE) --file srcs/docker-compose.yml stop

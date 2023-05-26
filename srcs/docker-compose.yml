@@ -7,8 +7,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - wordpress-data:/var/www/html
-    ports:
-      - 9000
     environment:
       MYSQL_ADMIN_USER: ${MYSQL_ADMIN_USER}
       MYSQL_ADMIN_PASS: ${MYSQL_ADMIN_PASS}
@@ -66,6 +64,18 @@ networks:
   internal:
       driver: bridge
 
+
 volumes:
   mariadb-data:
+    driver: local
+    driver_opts:
+      type: "none"
+      o: "bind"
+      device: "/home/ybentaye/data/mariadb"
   wordpress-data:
+    driver: local
+    driver_opts:
+      type: "none"
+      o: "bind"
+      device: "/home/ybentaye/data/wordpress"
+
